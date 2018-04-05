@@ -1,0 +1,39 @@
+
+#container{
+    width: 90%;
+    min-height: 90%;
+    background: #EEEEEE;
+    position: absolute;
+    margin-left: 5%;
+}
+
+#toDoContainer {
+    width: 30%;
+    min-height: 90%;
+    border: 1px solid #b3b3b3;
+    background: #cccccc;
+    position: absolute;
+    margin-left: 2.5%;    
+    margin-top: 2.5%; 
+}
+
+#doingContainer {
+    width: 30%;
+    min-height: 90%;
+    border: 1px solid #b3b3b3;
+    background: #cccccc;
+    position: absolute;
+    margin-left: 35%;   
+    margin-top: 2.5%;  
+}
+
+#doneContainer {
+    width: 30%;
+    min-height: 90%;
+    border: 1px solid #b3b3b3;
+    background: #cccccc;
+    position: absolute;
+    margin-left: 67.5%;  
+    margin-top: 2.5%;  
+}
+
