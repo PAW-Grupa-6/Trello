@@ -9,8 +9,13 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        // $this->call(UsersTableSeeder::class);
-    }
+     public function run()
+     {
+       for($i = 1; $i <= 20 ; $i++) {
+         DB::table('board')->insert([
+           'table_name' => str_random(10),
+           'user_id' => 4,
+         ]);
+       }
+     }
 }

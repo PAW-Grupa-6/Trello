@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/me', 'MeController@index')->name('me');
+Route::post('/home', 'HomeController@addBoard')->name('addBoard');
