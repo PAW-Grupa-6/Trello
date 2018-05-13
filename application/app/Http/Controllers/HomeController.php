@@ -29,7 +29,7 @@ class HomeController extends Controller
         //$tables = \App\Board::where('user_id',2)->take(40)->get();
         //$tables = \App\Board::all();
 
-        $boards = $user->boards;
+        $boards = $user->boards()->paginate(5);
         //dd($boards);
 
         return view('home')->with(compact('boards'));

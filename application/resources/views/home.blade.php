@@ -2,26 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <board></board>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    @foreach ($boards as $entity)
-                      <p>Tablica :  {{ $entity->table_name }} </p>
-                    @endforeach
-
-
-
-                </div>
-
+                <div class="card-header">Dodaj tablice</div>
                 <div class="card-body">
                     <form action="{{route('addBoard')}}" method="post">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
@@ -29,7 +14,6 @@
                     <input name="board_name" type="text">
                     <input type="submit" value="Dodaj tablice">
                     </form>
-
                 </div>
             </div>
         </div>
