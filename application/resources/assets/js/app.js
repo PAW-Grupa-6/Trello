@@ -22,6 +22,7 @@ Vue.use(VueRouter);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('board', require('./components/Board'));
 Vue.component('paginate', require('vuejs-paginate'));
+Vue.component('board-create', require('./components/BoardCreate.vue'));
 
 const app = new Vue({
     el: '#app',

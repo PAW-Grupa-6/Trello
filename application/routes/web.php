@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/me', 'MeController@index')->name('me');
 Route::post('/home', 'HomeController@addBoard')->name('addBoard');
 Route::get('/boards', 'BoardController@index');
+Route::post('/boards', 'BoardController@addBoard');

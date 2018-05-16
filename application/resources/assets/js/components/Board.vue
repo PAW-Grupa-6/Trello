@@ -31,7 +31,7 @@
             return {
                 boards: [],
                 pageCount: 1,
-                endpoint: '/boards?page='
+                endpoint: '/boards?page=',
             }
         },
         mounted() {
@@ -48,7 +48,7 @@
                     .catch(error => {
                         console.log(error.response)
                     });
-            }
+            },
         }
     }
 </script>

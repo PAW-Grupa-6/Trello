@@ -18,5 +18,14 @@ class BoardController extends Controller
         //dd($boards);
 
         return response(['boards' => $boards], 200);
-}
+    }
+
+    public function addBoard(Request $request){
+        $user = Auth::user();
+        $user->boards()->create([
+            'table_name'=>$request->input('table_name')
+        ]);
+
+        return response(['status' => 'success'], 200);
+    }
 }
