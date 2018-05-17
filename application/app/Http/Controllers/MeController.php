@@ -17,7 +17,6 @@ class MeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        //dd($user);
         return view('me')->with(['user' => $user]);
     }
 }

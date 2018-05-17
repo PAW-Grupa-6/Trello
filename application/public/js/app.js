@@ -50050,7 +50050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             boards: [],
             pageCount: 1,
-            endpoint: '/boards?page='
+            endpoint: '/api/boards?page='
         };
     },
     mounted: function mounted() {
