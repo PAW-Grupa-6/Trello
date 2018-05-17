@@ -31,7 +31,7 @@
             return {
                 boards: [],
                 pageCount: 1,
-                endpoint: '/api/boards?page=',
+                endpoint: '/boards?page=',
             }
         },
         mounted() {
