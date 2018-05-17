@@ -19,6 +19,7 @@ Vue.use(VueRouter);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('login', require('./components/Login'));
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('board', require('./components/Board'));
 Vue.component('paginate', require('vuejs-paginate'));
