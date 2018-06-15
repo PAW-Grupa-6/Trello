@@ -18,6 +18,9 @@
                         <router-link tag="li" :to="{ name: 'home' }">
                             <a class="nav-link">Home</a>
                         </router-link>
+                        <router-link tag="li" :to="{ name: 'register' }">
+                            <a class="nav-link">Register</a>
+                        </router-link>
                         <li v-if="authenticated && user"><button class="nav-link" v-on:click="logout">Logout</button></li>
                         <router-link tag="li" :to="{ name: 'login' }" v-else>
                             <a class="nav-link">Login</a>

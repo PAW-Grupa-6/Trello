@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router';
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Home from './components/Home';
 
 let routes = [
@@ -14,6 +15,11 @@ let routes = [
         name: 'login',
         component: Login
     },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register
+    }
 ];
 
 const router = new VueRouter({

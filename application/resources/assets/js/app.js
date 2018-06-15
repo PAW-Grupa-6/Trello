@@ -18,6 +18,7 @@ window.auth = new Auth();
 
 import Layout from "./components/Layout";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Boards from "./components/Board";
 import BoardCreate from './components/BoardCreate';
 
@@ -35,6 +36,7 @@ window.Event = new Vue;
 
 Vue.component('vue-layout', Layout);
 Vue.component('login', Login);
+Vue.component('register', Register);
 Vue.component('board', Boards);
 Vue.component('paginate', VuePaginate);
 Vue.component('board-create', BoardCreate);
