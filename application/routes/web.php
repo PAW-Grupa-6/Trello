@@ -11,15 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/{any}', function () {
+    return view('spa');
+})->where('any', '.*');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/me', 'MeController@index')->name('me');
-
-//Vue routes
-Route::get('/boards', 'BoardController@index');
-Route::post('/boards', 'BoardController@addBoard');
+//Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/me', 'MeController@index')->name('me');
+//
+////Vue routes
+//Route::get('/boards', 'BoardController@index');
+//Route::post('/boards', 'BoardController@addBoard');
