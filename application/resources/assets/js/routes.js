@@ -6,7 +6,8 @@ let routes = [
     {
         path: '/',
         name: 'home',
-        component: Home
+        component: Home,
+        meta: { middlewareAuth: true }
     },
     {
         path: '/login',
@@ -15,6 +16,23 @@ let routes = [
     },
 ];
 
-export default new VueRouter({
+const router = new VueRouter({
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.middlewareAuth)) {
+        if (!auth.check()) {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            });
+
+            return;
+        }
+    }
+
+    next();
+});
+
+export default router;

@@ -20,6 +20,8 @@
 </template>
 
 <script>
+    import auth from "../auth";
+
     export default {
         data() {
             return {
@@ -32,19 +34,17 @@
         methods: {
             login() {
                 var data = {
-                    client_id: 2,
-                    client_secret: 'hpMvK84sVpMaPQTZGNhlsA8VyRoiKgoZYMinrETp',
-                    grant_type: 'password',
                     username: this.user.email,
                     password: this.user.password,
                 }
 
-                axios.post('/oauth/token', data)
+                axios.post('/api/login', data)
                     .then(response => {
-                        console.log(response);
+                        auth.login(response.data.token, response.data.user);
+                        this.$router.push('/home');
                     })
                     .catch(error => {
-                        console.log(error.response);
+                        console.log(error);
                     })
             }
         }

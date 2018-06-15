@@ -18,7 +18,10 @@
                         <router-link tag="li" :to="{ name: 'home' }">
                             <a class="nav-link">Home</a>
                         </router-link>
-                        <router-link tag="li" :to="{ name: 'login' }">
+                        <router-link v-if="authenticated && user" tag="li" :to="{ name: 'logout' }" v-else>
+                            <a class="nav-link">Logout</a>
+                        </router-link>
+                        <router-link tag="li" :to="{ name: 'login' }" v-else>
                             <a class="nav-link">Login</a>
                         </router-link>
                     </ul>
@@ -40,8 +43,17 @@
         data() {
             return {
                 env: process.env,
+                authenticated: auth.check(),
+                user: auth.user
             }
         },
+        mounted() {
+            Event.$on('userLoggedIn', () => {
+                this.authenticated = true;
+                this.user = auth.user;
+            });
+        },
+
 
     }
 </script>

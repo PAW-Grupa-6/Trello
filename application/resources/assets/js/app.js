@@ -12,6 +12,10 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import VuePaginate from "vuejs-paginate";
 
+import Auth from './auth.js';
+
+window.auth = new Auth();
+
 import Layout from "./components/Layout";
 import Login from "./components/Login";
 import Boards from "./components/Board";
@@ -20,6 +24,8 @@ import BoardCreate from './components/BoardCreate';
 import router from './routes';
 
 Vue.use(VueRouter);
+
+window.Event = new Vue;
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,8 +38,6 @@ Vue.component('login', Login);
 Vue.component('board', Boards);
 Vue.component('paginate', VuePaginate);
 Vue.component('board-create', BoardCreate);
-
-console.log(process.env);
 
 const app = new Vue({
     el: '#app',
