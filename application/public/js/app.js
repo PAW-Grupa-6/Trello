@@ -50279,8 +50279,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50297,7 +50295,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.authenticated = true;
             _this.user = auth.user;
         });
+
+        Event.$on('userLoggedOut', function () {
+            _this.authenticated = false;
+            _this.user = auth.user;
+        });
+    },
+
+    methods: {
+        logout: function logout() {
+            var data = { id: this.user.id };
+            axios.post('/api/logout', data).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error.response);
+            });
+            auth.logout();
+            this.$router.push('/login');
+        }
     }
+
 });
 
 /***/ }),
@@ -50338,18 +50355,16 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _vm.authenticated && _vm.user
-                    ? _c(
-                        "router-link",
-                        {
-                          directives: [{ name: "else", rawName: "v-else" }],
-                          attrs: { tag: "li", to: { name: "logout" } }
-                        },
-                        [
-                          _c("a", { staticClass: "nav-link" }, [
-                            _vm._v("Logout")
-                          ])
-                        ]
-                      )
+                    ? _c("li", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "nav-link",
+                            on: { click: _vm.logout }
+                          },
+                          [_vm._v("Logout")]
+                        )
+                      ])
                     : _c(
                         "router-link",
                         { attrs: { tag: "li", to: { name: "login" } } },
@@ -51232,6 +51247,16 @@ var Auth = function () {
             Event.$emit('userLoggedIn');
         }
     }, {
+        key: 'logout',
+        value: function logout() {
+            window.localStorage.setItem('token', null);
+            window.localStorage.setItem('user', null);
+            this.token = null;
+            this.user = null;
+
+            Event.$emit('userLoggedOut');
+        }
+    }, {
         key: 'check',
         value: function check() {
             return !!this.token;
@@ -51249,7 +51274,7 @@ var Auth = function () {
                 var response = _ref2.response;
 
                 if (response.status === 401) {
-                    console.log('dupa');
+                    console.log(response);
                 }
             });
         }

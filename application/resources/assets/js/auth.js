@@ -25,6 +25,19 @@ class Auth {
         Event.$emit('userLoggedIn');
     }
 
+    logout() {
+        window.localStorage.setItem('token', null);
+        window.localStorage.setItem('user', null);
+        this.token = null;
+        this.user = null;
+
+        Event.$emit('userLoggedOut');
+
+
+
+
+    }
+
     check () {
         return !! this.token;
     }
@@ -36,7 +49,7 @@ class Auth {
             })
             .catch(({response}) => {
                 if (response.status === 401) {
-                    console.log('dupa')
+                    console.log(response)
                 }
             });
     }

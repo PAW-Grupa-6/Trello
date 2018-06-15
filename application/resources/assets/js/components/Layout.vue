@@ -18,9 +18,7 @@
                         <router-link tag="li" :to="{ name: 'home' }">
                             <a class="nav-link">Home</a>
                         </router-link>
-                        <router-link v-if="authenticated && user" tag="li" :to="{ name: 'logout' }" v-else>
-                            <a class="nav-link">Logout</a>
-                        </router-link>
+                        <li v-if="authenticated && user"><button class="nav-link" v-on:click="logout">Logout</button></li>
                         <router-link tag="li" :to="{ name: 'login' }" v-else>
                             <a class="nav-link">Login</a>
                         </router-link>
@@ -52,7 +50,27 @@
                 this.authenticated = true;
                 this.user = auth.user;
             });
+
+            Event.$on('userLoggedOut', () => {
+                this.authenticated = false;
+                this.user = auth.user;
+            });
+
         },
+        methods: {
+            logout() {
+                var data = {id: this.user.id};
+                axios.post('/api/logout', data)
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    })
+                auth.logout();
+                this.$router.push('/login');
+            }
+        }
 
 
     }
