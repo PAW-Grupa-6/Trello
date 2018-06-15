@@ -28,6 +28,9 @@ class Auth {
     logout() {
         window.localStorage.setItem('token', null);
         window.localStorage.setItem('user', null);
+
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + '';
+
         this.token = null;
         this.user = null;
 
