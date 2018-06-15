@@ -22,12 +22,8 @@
 </head>
 <body>
     <div id="app">
-        <vue-layout></vue-layout>
+        @yield('content')
 
-
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
 </body>
 </html>

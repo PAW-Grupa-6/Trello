@@ -14297,6 +14297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Board___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Board__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_BoardCreate__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_BoardCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_BoardCreate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__routes__ = __webpack_require__(65);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -14306,6 +14307,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(16);
 
 window.Vue = __webpack_require__(39);
+
+
 
 
 
@@ -14332,7 +14335,8 @@ Vue.component('board-create', __WEBPACK_IMPORTED_MODULE_5__components_BoardCreat
 console.log(Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  router: __WEBPACK_IMPORTED_MODULE_6__routes__["a" /* default */]
 });
 
 /***/ }),
@@ -50248,6 +50252,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50265,17 +50290,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "nav",
-    { staticClass: "navbar navbar-expand-md navbar-light navbar-laravel" },
-    [
-      _c("div", { staticClass: "container" }, [
-        _c("div", [_vm._v(_vm._s(_vm.env.MIX_PUSHER_APP_CLUSTER))]),
-        _vm._v(" "),
-        _vm._m(0)
-      ])
-    ]
-  )
+  return _c("div", [
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-md navbar-light navbar-laravel" },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", [_vm._v(_vm._s(_vm.env.MIX_PUSHER_APP_CLUSTER) + "323")]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav mr-auto" }),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "navbar-nav ml-auto" },
+                [
+                  _c(
+                    "router-link",
+                    { attrs: { tag: "li", to: { name: "home" } } },
+                    [_c("a", { staticClass: "nav-link" }, [_vm._v("Home")])]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    { attrs: { tag: "li", to: { name: "login" } } },
+                    [_c("a", { staticClass: "nav-link" }, [_vm._v("Login")])]
+                  )
+                ],
+                1
+              )
+            ]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("main", { staticClass: "py-4" }, [_c("router-view")], 1)
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -50394,7 +50453,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -50457,6 +50516,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -50495,72 +50556,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row justify-content-center mt-5" }, [
-    _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-header" }, [_vm._v("Login")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  _vm.login()
-                }
-              }
-            },
-            [
-              _c("label", [_vm._v("Email")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.email,
-                    expression: "user.email"
-                  }
-                ],
-                attrs: { type: "text" },
-                domProps: { value: _vm.user.email },
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Login")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "email", $event.target.value)
+                  submit: function($event) {
+                    $event.preventDefault()
+                    _vm.login()
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("label", [_vm._v("Password")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user.password,
-                    expression: "user.password"
-                  }
-                ],
-                attrs: { type: "password" },
-                domProps: { value: _vm.user.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              },
+              [
+                _c("label", [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.email,
+                      expression: "user.email"
                     }
-                    _vm.$set(_vm.user, "password", $event.target.value)
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.user.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "email", $event.target.value)
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _c("button", { staticClass: "btn" }, [_vm._v("Login")])
-            ]
-          )
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Password")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.password,
+                      expression: "user.password"
+                    }
+                  ],
+                  attrs: { type: "password" },
+                  domProps: { value: _vm.user.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "password", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn" }, [_vm._v("Login")])
+              ]
+            )
+          ])
         ])
       ])
     ])
@@ -50953,6 +51016,126 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Login___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Login__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Home__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Home___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Home__);
+
+
+
+
+var routes = [{
+    path: '/',
+    name: 'home',
+    component: __WEBPACK_IMPORTED_MODULE_2__components_Home___default.a
+}, {
+    path: '/login',
+    name: 'login',
+    component: __WEBPACK_IMPORTED_MODULE_1__components_Login___default.a
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+    routes: routes
+}));
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(67)
+/* template */
+var __vue_template__ = __webpack_require__(68)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Home.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-85ef4954", Component.options)
+  } else {
+    hotAPI.reload("data-v-85ef4954", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {};
+    }
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_vm._v("siema")])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-85ef4954", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

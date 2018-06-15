@@ -17,6 +17,7 @@ import Login from "./components/Login";
 import Boards from "./components/Board";
 import BoardCreate from './components/BoardCreate';
 
+import router from './routes';
 
 Vue.use(VueRouter);
 
@@ -36,4 +37,5 @@ console.log(process.env);
 
 const app = new Vue({
     el: '#app',
+    router
 });
