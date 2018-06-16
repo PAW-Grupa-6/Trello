@@ -36,17 +36,18 @@
         methods: {
             Register() {
                 var data = {
-                    name: 'this.user.name',
-                    username: this.user.email,
+                    name: this.user.name,
+                    email: this.user.email,
                     password: this.user.password,
                 }
 
                 axios.post('/api/register', data)
                     .then(response => {
+                        console.log(response);
                         this.$router.push('/login');
                     })
                     .catch(error => {
-                        console.log(error);
+                        console.log(error.response);
                     })
             }
         }

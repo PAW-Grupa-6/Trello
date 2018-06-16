@@ -6,15 +6,24 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register()
+    public function register(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
         User::create([
             'name' => request('name'),
             'email' => request('email'),
-            'password' => bcrypt(request('password'))
+            'password' => Hash::make(request('email')),
+            'api_token' => str_random(60),
         ]);
 
         return response()->json(['status' => 201]);
@@ -91,6 +100,5 @@ class AuthController extends Controller
     {
         return auth()->user();
     }
-
 
 }
