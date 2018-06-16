@@ -2,14 +2,12 @@
   <v-app>  
 
     <v-toolbar>
-     <v-menu offset-y>
-      <v-btn primary flat slot="activator"><v-icon left>web</v-icon> Boards</v-btn>
-        <v-list>
-          <v-list-tile v-for="item in items" :key="item.title">
-            <v-list-tile-title>{{item.title}}</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
+     
+      
+        
+      <div>
+        <router-link to="/boards" tag="span"><v-card-text><v-btn primary flat slot="activator"><v-icon left>web</v-icon> Boards</v-btn></v-card-text></router-link>
+      </div> 
       
       <v-spacer></v-spacer>
       <v-toolbar-title v-text="title"></v-toolbar-title>
@@ -32,7 +30,8 @@
 
 
 
-<script>
+<script> 
+
 export default {
   data () {
     return {
@@ -51,7 +50,7 @@ export default {
         title: 'Issue3'
       }],
    
-      title: 'trello7'
+      title: 'trello6'
     }
   },
 
