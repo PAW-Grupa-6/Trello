@@ -53828,6 +53828,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53838,8 +53840,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tasks: ''
         };
     },
-    mounted: function mounted() {},
-    created: function created() {},
+    created: function created() {
+        this.tasks = this.list;
+    },
+    updated: function updated() {
+        this.tasks = this.list;
+    },
 
     methods: {
         deleteTask: function deleteTask(id) {
@@ -53848,7 +53854,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 Event.$emit('boardChange');
             });
         },
-        onAdd: function onAdd() {},
+        onAdd: function onAdd(evt) {
+            console.log(evt);
+            var taskId = evt.item.getAttribute('taskId');
+            api.call('post', '/api/tasks/' + taskId + '/edit', { board_id: this.board_id }).then(function (response) {
+                console.log(response);
+                Event.$emit('boardChange');
+            });
+        },
         onChange: function onChange() {}
     }
 });
@@ -53864,34 +53877,49 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.list, function(task) {
-        return _c(
-          "div",
-          { staticClass: "task", attrs: { draggable: "true" } },
-          [
-            _c("p", [_vm._v(" Name: " + _vm._s(task.name))]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Description: " + _vm._s(task.description))]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                attrs: { type: "buttton" },
-                on: {
-                  click: function($event) {
-                    _vm.deleteTask(task.id)
+      _c(
+        "draggable",
+        {
+          staticStyle: { "min-height": "15px" },
+          attrs: { options: { group: "tasks" }, boardId: _vm.board_id },
+          on: { add: _vm.onAdd },
+          model: {
+            value: _vm.tasks,
+            callback: function($$v) {
+              _vm.tasks = $$v
+            },
+            expression: "tasks"
+          }
+        },
+        _vm._l(_vm.list, function(task) {
+          return _c(
+            "div",
+            { staticClass: "task", attrs: { taskId: task.id } },
+            [
+              _c("p", [_vm._v(" Name: " + _vm._s(task.name))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Description: " + _vm._s(task.description))]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  attrs: { type: "buttton" },
+                  on: {
+                    click: function($event) {
+                      _vm.deleteTask(task.id)
+                    }
                   }
-                }
-              },
-              [_vm._v("Delete")]
-            )
-          ]
-        )
-      }),
+                },
+                [_vm._v("Delete")]
+              )
+            ]
+          )
+        })
+      ),
       _vm._v(" "),
       _c("task-create", { attrs: { board_id: _vm.board_id } })
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
