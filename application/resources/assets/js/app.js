@@ -7,14 +7,14 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
-
 import VueRouter from 'vue-router';
 import VuePaginate from "vuejs-paginate";
 
 import Api from './api';
 import Auth from './auth.js';
 
+window.Vue = require('vue');
+Vue.use(VueRouter);
 window.api = new Api();
 window.auth = new Auth();
 
@@ -26,7 +26,7 @@ import BoardCreate from './components/BoardCreate';
 
 import router from './routes';
 
-Vue.use(VueRouter);
+
 
 window.Event = new Vue;
 
@@ -45,5 +45,5 @@ Vue.component('board-create', BoardCreate);
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
 });

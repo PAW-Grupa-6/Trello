@@ -15,9 +15,14 @@ class TasksTable extends Migration
     {
       Schema::create('tasks', function (Blueprint $tasks) {
          $tasks->increments('id');
-         $tasks->string('task_name');
-         $tasks->string('tast_description');
+         $tasks->string('name');
+         $tasks->string('description');
+         $tasks->unsignedInteger('board_id');
      });
+
+        Schema::table('tasks', function (Blueprint $tasks) {
+            $tasks->foreign('board_id')->references('id')->on('board');
+        });
     }
 
     /**

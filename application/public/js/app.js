@@ -17089,14 +17089,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(20);
 
+
+
+
+
+
+
 window.Vue = __webpack_require__(43);
-
-
-
-
-
-
-
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 window.api = new __WEBPACK_IMPORTED_MODULE_2__api__["a" /* default */]();
 window.auth = new __WEBPACK_IMPORTED_MODULE_3__auth_js__["a" /* default */]();
 
@@ -17107,8 +17107,6 @@ window.auth = new __WEBPACK_IMPORTED_MODULE_3__auth_js__["a" /* default */]();
 
 
 
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 window.Event = new Vue();
 
@@ -50385,10 +50383,10 @@ var Auth = function () {
     }, {
         key: 'logout',
         value: function logout() {
-            window.localStorage.setItem('token', null);
-            window.localStorage.setItem('user', null);
+            window.localStorage.removeItem('token');
+            window.localStorage.removeItem('user');
 
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + '';
+            axios.defaults.headers.common['Authorization'] = '';
 
             this.token = null;
             this.user = null;
@@ -50806,8 +50804,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/api/login', data).then(function (response) {
                 auth.login(response.data.token, response.data.user);
                 _this.$router.push('/home');
-            }).catch(function (response) {
-                console.log(response);
+            }).catch(function (_ref) {
+                var response = _ref.response;
+
+                console.log(response.response);
                 alert(response.data.message);
             });
         }
@@ -51154,31 +51154,75 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             boards: [],
+            boardName: '',
+            updateBoardId: '',
             pageCount: 1,
             endpoint: '/api/boards?page='
         };
     },
     mounted: function mounted() {
+        var _this = this;
+
         this.readBoards();
+
+        Event.$on('boardChange', function () {
+            _this.$refs.paginate.selected = _this.boards.length - 1 ? _this.$refs.paginate.selected : _this.$refs.paginate.selected - 1;
+            _this.readBoards(_this.$refs.paginate.selected + 1);
+        });
     },
 
     methods: {
         readBoards: function readBoards() {
-            var _this = this;
+            var _this2 = this;
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             api.call('get', this.endpoint + page).then(function (response) {
                 console.log(response);
-                _this.boards = response.data.boards.data;
-                _this.pageCount = response.data.boards.last_page;
+                _this2.boards = response.data.boards.data;
+                _this2.pageCount = response.data.boards.last_page;
             }).catch(function (error) {
-                console.log(error.response);
+                console.log(error);
+            });
+        },
+        updateBoard: function updateBoard() {
+            var _this3 = this;
+
+            api.call('post', '/api/boards/' + this.updateBoardId + '/edit', { table_name: this.boardName }).then(function (response) {
+                _this3.boards.find(function (o) {
+                    return o.id === _this3.updateBoardId;
+                }).table_name = _this3.boardName;
+                _this3.updateBoardId = '';
+                _this3.boardName = '';
+            }).catch(function (response) {
+                console.log(response);
+                alert(response.data.message);
+            });
+        },
+        deleteBoard: function deleteBoard(id) {
+            api.call('delete', '/api/boards/' + id + '/delete').then(function (response) {
+                console.log(response.response);
+                Event.$emit('boardChange');
             });
         }
     }
@@ -51197,33 +51241,139 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [_vm._v("Moje tablice")]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "div",
+            { staticClass: "row" },
             _vm._l(_vm.boards, function(board) {
-              return _c("p", [_vm._v(_vm._s(board.table_name))])
-            }),
-            _vm._v(" "),
-            _c("paginate", {
-              attrs: {
-                "page-count": _vm.pageCount,
-                "page-range": _vm.pageCount,
-                "click-handler": _vm.readBoards,
-                "prev-text": "<",
-                "next-text": ">",
-                "container-class": "pagination",
-                "page-class": "page-item",
-                "page-link-class": "page-link",
-                "prev-class": "page-item",
-                "prev-link-class": "page-link",
-                "next-class": "page-item",
-                "next-link-class": "page-link"
-              }
+              return _c(
+                "div",
+                { staticClass: "board" },
+                [
+                  _vm.updateBoardId == board.id
+                    ? _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.boardName,
+                            expression: "boardName"
+                          }
+                        ],
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.boardName },
+                        on: {
+                          keyup: [
+                            function($event) {
+                              if (
+                                !("button" in $event) &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.updateBoard($event)
+                            },
+                            function($event) {
+                              if (
+                                !("button" in $event) &&
+                                $event.keyCode !== 27
+                              ) {
+                                return null
+                              }
+                              _vm.updateBoardId = null
+                              _vm.boardName = null
+                            }
+                          ],
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.boardName = $event.target.value
+                          }
+                        }
+                      })
+                    : _c(
+                        "p",
+                        {
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                              _vm.updateBoardId = board.id
+                              _vm.boardName = board.table_name
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "[ " +
+                              _vm._s(board.id) +
+                              "]" +
+                              _vm._s(board.table_name)
+                          )
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "text-left",
+                      on: {
+                        click: function($event) {
+                          _vm.deleteBoard(board.id)
+                        }
+                      }
+                    },
+                    [_vm._v("X")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(board.tasks, function(task) {
+                    return _c(
+                      "div",
+                      { staticClass: "task", attrs: { draggable: "true" } },
+                      [_vm._v(_vm._s(task.name))]
+                    )
+                  })
+                ],
+                2
+              )
             })
-          ],
-          2
-        )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-3" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-12" },
+              [
+                _c("paginate", {
+                  ref: "paginate",
+                  attrs: {
+                    "page-count": _vm.pageCount,
+                    "page-range": _vm.pageCount,
+                    "click-handler": _vm.readBoards,
+                    "prev-text": "<",
+                    "next-text": ">",
+                    "container-class": "pagination",
+                    "page-class": "page-item",
+                    "page-link-class": "page-link",
+                    "prev-class": "page-item",
+                    "prev-link-class": "page-link",
+                    "next-class": "page-item",
+                    "next-link-class": "page-link"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-3" }, [_c("board-create")], 1)
+        ])
       ])
     ])
   ])
@@ -51324,7 +51474,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -51352,22 +51502,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             board: {
                 table_name: ''
-            },
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
         };
     },
 
     methods: {
         save: function save() {
-            axios.post('boards', this.board).then(function (response) {
+            api.call('post', '/api/boards/create', this.board).then(function (response) {
                 console.log(response);
+                Event.$emit('boardChange');
             }).catch(function (error) {
                 console.log(error.response);
             });
@@ -51421,11 +51570,6 @@ var render = function() {
                     _vm.$set(_vm.board, "table_name", $event.target.value)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "_token" },
-                domProps: { value: _vm.csrf }
               }),
               _vm._v(" "),
               _c("button", { staticClass: "btn" }, [_vm._v("Dodaj")])
@@ -51492,6 +51636,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
 });
 
 router.beforeEach(function (to, from, next) {
+    console.log(auth.check());
     if (to.matched.some(function (record) {
         return record.meta.middlewareAuth;
     })) {
@@ -51632,6 +51777,7 @@ var Api = function () {
                     resolve(response);
                 }).catch(function (_ref) {
                     var response = _ref.response;
+
 
                     if (response.status === 401) {
                         auth.logout();

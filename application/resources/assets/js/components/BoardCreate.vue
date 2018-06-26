@@ -7,7 +7,6 @@
                     <form v-on:submit.prevent="save()">
                         <label>Nazwa tablicy</label>
                         <input v-model="board.table_name" type="text">
-                        <input type="hidden" name="_token" :value="csrf">
                         <button class="btn">Dodaj</button>
                     </form>
                 </div>
@@ -22,15 +21,15 @@
             return {
                 board: {
                     table_name: '',
-                },
-                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
             }
         },
         methods: {
             save() {
-                axios.post('boards', this.board)
+                api.call('post', '/api/boards/create', this.board)
                     .then(response => {
                         console.log(response);
+                        Event.$emit('boardChange');
                     })
                     .catch(error => {
                         console.log(error.response);

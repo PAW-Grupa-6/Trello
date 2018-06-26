@@ -35,6 +35,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    console.log(auth.check());
     if (to.matched.some(record => record.meta.middlewareAuth)) {
         if (!auth.check()) {
             next({

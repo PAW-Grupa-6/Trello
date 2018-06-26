@@ -9,7 +9,12 @@ class Task extends Model
   public $timestamps = false;
   protected $table = 'tasks';
   protected $fillable = [
-      'task_name',
-      'tast_description'
+      'name',
+      'description'
   ];
+
+
+    public function board(){
+        return $this->belongsTo('App\Board');
+    }
 }

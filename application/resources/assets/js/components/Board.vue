@@ -4,21 +4,36 @@
                 <div class="card">
                     <div class="card-header">Moje tablice</div>
                     <div class="card-body">
-                        <p v-for="board in boards">{{ board.table_name  }}</p>
-                        <paginate
-                                :page-count="pageCount"
-                                :page-range="pageCount"
-                                :click-handler="readBoards"
-                                :prev-text="'<'"
-                                :next-text="'>'"
-                                :container-class="'pagination'"
-                                :page-class="'page-item'"
-                                :page-link-class="'page-link'"
-                                :prev-class="'page-item'"
-                                :prev-link-class="'page-link'"
-                                :next-class="'page-item'"
-                                :next-link-class="'page-link'">
-                        </paginate>
+                        <div class="row">
+                            <div class="board" v-for="board in boards">
+                                <input type="text" v-model="boardName" v-if="updateBoardId == board.id" @keyup.enter="updateBoard" @keyup.27="updateBoardId=null; boardName=null" />
+                                <p @click.stop="updateBoardId = board.id; boardName=board.table_name" v-else>[ {{ board.id }}]{{ board.table_name }}</p>
+                                <span class="text-left" @click="deleteBoard(board.id)">X</span>
+                                <div v-for="task in board.tasks" class="task" draggable="true">{{ task.name}}</div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <paginate
+                                        :page-count="pageCount"
+                                        :page-range="pageCount"
+                                        :click-handler="readBoards"
+                                        :prev-text="'<'"
+                                        :next-text="'>'"
+                                        :container-class="'pagination'"
+                                        :page-class="'page-item'"
+                                        :page-link-class="'page-link'"
+                                        :prev-class="'page-item'"
+                                        :prev-link-class="'page-link'"
+                                        :next-class="'page-item'"
+                                        :next-link-class="'page-link'"
+                                        ref="paginate">
+                                </paginate>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <board-create></board-create>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,12 +45,19 @@
         data() {
             return {
                 boards: [],
+                boardName: '',
+                updateBoardId:'',
                 pageCount: 1,
                 endpoint: '/api/boards?page=',
             }
         },
         mounted() {
             this.readBoards();
+
+            Event.$on('boardChange', () => {
+                this.$refs.paginate.selected = this.boards.length -1 ? this.$refs.paginate.selected : this.$refs.paginate.selected -1;
+                this.readBoards(this.$refs.paginate.selected + 1);
+            });
         },
         methods: {
             readBoards(page = 1) {
@@ -46,9 +68,29 @@
                         this.pageCount = response.data.boards.last_page
                     })
                     .catch(error => {
-                        console.log(error.response)
+                        console.log(error)
                     });
             },
+
+            updateBoard() {
+                api.call('post', '/api/boards/'+ this.updateBoardId +'/edit', {table_name: this.boardName})
+                    .then(response => {
+                        this.boards.find(o=> o.id === this.updateBoardId).table_name = this.boardName;
+                        this.updateBoardId = '';
+                        this.boardName = '';
+                    }).catch(response =>{
+                        console.log(response);
+                        alert(response.data.message)
+                })
+
+            },
+            deleteBoard(id) {
+                api.call('delete', '/api/boards/'+ id + '/delete')
+                    .then(response =>{
+                        console.log(response.response);
+                        Event.$emit('boardChange');
+                    })
+            }
         }
     }
 </script>

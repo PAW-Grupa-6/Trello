@@ -26,18 +26,15 @@ class Auth {
     }
 
     logout() {
-        window.localStorage.setItem('token', null);
-        window.localStorage.setItem('user', null);
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
 
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + '';
+        axios.defaults.headers.common['Authorization'] = '';
 
         this.token = null;
         this.user = null;
 
         Event.$emit('userLoggedOut');
-
-
-
 
     }
 

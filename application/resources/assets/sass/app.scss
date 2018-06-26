@@ -12,3 +12,18 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.board {
+  width: 30%;
+  min-height: 300px;
+  border: 1px solid #b3b3b3;
+  background: #cccccc;
+  position: relative;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+}
+
+.task {
+  border: 1px solid #463bb3;
+  background: #c8cc2a;
+}
