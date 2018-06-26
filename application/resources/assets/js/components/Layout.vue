@@ -14,15 +14,20 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto" v-if="authenticated && user">
                         <router-link tag="li" :to="{ name: 'home' }">
                             <a class="nav-link">Home</a>
                         </router-link>
+                        <router-link tag="li" :to="{ name: 'board' }">
+                            <a class="nav-link">Boards</a>
+                        </router-link>
+                        <li><button class="nav-link" v-on:click="logout">Logout</button></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto" v-else>
                         <router-link tag="li" :to="{ name: 'register' }">
                             <a class="nav-link">Register</a>
                         </router-link>
-                        <li v-if="authenticated && user"><button class="nav-link" v-on:click="logout">Logout</button></li>
-                        <router-link tag="li" :to="{ name: 'login' }" v-else>
+                        <router-link tag="li" :to="{ name: 'login' }">
                             <a class="nav-link">Login</a>
                         </router-link>
                     </ul>

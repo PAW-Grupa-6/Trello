@@ -46,14 +46,9 @@ class Auth {
     }
 
     getUser() {
-        axios.get('/api/get-user')
-            .then(({user}) => {
+        api.call('get', 'api/get-user')
+            .then(({user}) =>{
                 this.user = user;
-            })
-            .catch(({response}) => {
-                if (response.status === 401) {
-                    console.log(response)
-                }
             });
     }
 }

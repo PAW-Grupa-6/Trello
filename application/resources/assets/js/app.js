@@ -12,8 +12,10 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import VuePaginate from "vuejs-paginate";
 
+import Api from './api';
 import Auth from './auth.js';
 
+window.api = new Api();
 window.auth = new Auth();
 
 import Layout from "./components/Layout";

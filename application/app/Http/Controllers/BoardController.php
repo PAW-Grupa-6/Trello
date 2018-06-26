@@ -9,7 +9,7 @@ class BoardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //
     }
 
     public function index() {
@@ -17,7 +17,7 @@ class BoardController extends Controller
         $boards = $user->boards()->paginate(5);
         //dd($boards);
 
-        return response(['boards' => $boards], 200);
+        return response()->json(['boards' => $boards], 200);
     }
 
     public function addBoard(Request $request){

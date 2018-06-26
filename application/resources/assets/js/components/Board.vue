@@ -31,7 +31,7 @@
             return {
                 boards: [],
                 pageCount: 1,
-                endpoint: '/boards?page=',
+                endpoint: '/api/boards?page=',
             }
         },
         mounted() {
@@ -39,7 +39,7 @@
         },
         methods: {
             readBoards(page = 1) {
-                axios.get(this.endpoint + page)
+                api.call('get', this.endpoint + page)
                     .then(response => {
                         console.log(response);
                         this.boards = response.data.boards.data;

@@ -42,8 +42,9 @@
                         auth.login(response.data.token, response.data.user);
                         this.$router.push('/home');
                     })
-                    .catch(error => {
-                        console.log(error);
+                    .catch(response => {
+                        console.log(response);
+                        alert(response.data.message);
                     })
             }
         }

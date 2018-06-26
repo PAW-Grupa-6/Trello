@@ -21,4 +21,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/get-user', 'API\AuthController@getUser');
     Route::get('/boards', 'BoardController@index');
     Route::post('/boards', 'BoardController@addBoard');
+    Route::post('/boards', 'BoardController@addBoard');
+
 });

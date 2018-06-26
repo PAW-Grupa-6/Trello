@@ -98,6 +98,7 @@ class AuthController extends Controller
 
     public function getUser()
     {
+        //return response()->json([Request::header('Authorization')], 200);
         return auth()->user();
     }
 
