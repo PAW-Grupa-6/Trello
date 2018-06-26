@@ -20,8 +20,12 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/logout', 'API\AuthController@logout');
     Route::get('/get-user', 'API\AuthController@getUser');
     Route::get('/boards', 'BoardController@index');
-    Route::post('/boards/create', 'BoardController@create');
+    Route::post('/boards/create', 'BoardController@store');
     Route::post('/boards/{board}/edit', 'BoardController@update');
     Route::delete('/boards/{board}/delete', 'BoardController@destroy');
+
+    Route::post('/tasks/create', 'TaskController@store');
+    Route::post('/tasks/{task}/edit', 'TaskController@update');
+    Route::delete('/tasks/{task}/delete', 'TaskController@destroy');
 
 });

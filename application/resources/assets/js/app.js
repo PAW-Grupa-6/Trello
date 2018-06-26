@@ -23,6 +23,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Boards from "./components/Board";
 import BoardCreate from './components/BoardCreate';
+import Tasks from './components/Tasks';
+import TaskCreate from './components/TaskCreate';
 
 import router from './routes';
 
@@ -42,6 +44,8 @@ Vue.component('register', Register);
 Vue.component('board', Boards);
 Vue.component('paginate', VuePaginate);
 Vue.component('board-create', BoardCreate);
+Vue.component('tasks', Tasks);
+Vue.component('task-create', TaskCreate);
 
 const app = new Vue({
     el: '#app',

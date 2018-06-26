@@ -21,7 +21,7 @@ class BoardController extends Controller
         return response()->json(['boards' => $boards], 200);
     }
 
-    public function create(Request $request){
+    public function store(Request $request){
         $user = Auth::user();
 
         $request->validate([
@@ -47,6 +47,7 @@ class BoardController extends Controller
     }
 
     public function destroy(Request $request, Board $board) {
+        $board->tasks()->delete();
         $board->delete();
         return response()->json(['status' => 'success'], 200);
     }

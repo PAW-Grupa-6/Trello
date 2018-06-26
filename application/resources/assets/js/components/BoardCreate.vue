@@ -2,12 +2,12 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Dodaj tablice</div>
+                <div class="card-header">Add board</div>
                 <div class="card-body">
                     <form v-on:submit.prevent="save()">
-                        <label>Nazwa tablicy</label>
+                        <label>Board name</label>
                         <input v-model="board.table_name" type="text">
-                        <button class="btn">Dodaj</button>
+                        <button class="btn">Add</button>
                     </form>
                 </div>
             </div>

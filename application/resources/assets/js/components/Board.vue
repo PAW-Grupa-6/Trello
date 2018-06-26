@@ -2,14 +2,14 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Moje tablice</div>
+                    <div class="card-header">My boards</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="board" v-for="board in boards">
                                 <input type="text" v-model="boardName" v-if="updateBoardId == board.id" @keyup.enter="updateBoard" @keyup.27="updateBoardId=null; boardName=null" />
                                 <p @click.stop="updateBoardId = board.id; boardName=board.table_name" v-else>[ {{ board.id }}]{{ board.table_name }}</p>
-                                <span class="text-left" @click="deleteBoard(board.id)">X</span>
-                                <div v-for="task in board.tasks" class="task" draggable="true">{{ task.name}}</div>
+                                <button type="button" @click="deleteBoard(board.id)">Delete</button>
+                                <tasks :list="board.tasks" :board_id="board.id"></tasks>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -55,6 +55,7 @@
             this.readBoards();
 
             Event.$on('boardChange', () => {
+                console.log('eventyttt');
                 this.$refs.paginate.selected = this.boards.length -1 ? this.$refs.paginate.selected : this.$refs.paginate.selected -1;
                 this.readBoards(this.$refs.paginate.selected + 1);
             });
@@ -75,9 +76,9 @@
             updateBoard() {
                 api.call('post', '/api/boards/'+ this.updateBoardId +'/edit', {table_name: this.boardName})
                     .then(response => {
-                        this.boards.find(o=> o.id === this.updateBoardId).table_name = this.boardName;
                         this.updateBoardId = '';
                         this.boardName = '';
+                        Event.$emit('boardChange');
                     }).catch(response =>{
                         console.log(response);
                         alert(response.data.message)
