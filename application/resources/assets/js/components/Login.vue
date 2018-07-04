@@ -43,7 +43,7 @@
                         this.$router.push('/home');
                     })
                     .catch(({response}) => {
-                        console.log(response.response);
+                        console.log(response);
                         alert(response.data.message);
                     })
             }

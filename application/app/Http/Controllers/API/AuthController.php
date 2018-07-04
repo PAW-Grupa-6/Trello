@@ -23,7 +23,7 @@ class AuthController extends Controller
         User::create([
             'name' => request('name'),
             'email' => request('email'),
-            'password' => Hash::make(request('email')),
+            'password' => Hash::make(request('password')),
             'api_token' => str_random(60),
         ]);
 
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'Wrong email or password',
+                'message' => 'Wrong email or password1',
                 'status' => 422
             ], 422);
         }
@@ -45,7 +45,7 @@ class AuthController extends Controller
         // belongs to this user
         if (!Hash::check(request('password'), $user->password)) {
             return response()->json([
-                'message' => 'Wrong email or password',
+                'message' => 'Wrong email or password2',
                 'status' => 422
             ], 422);
         }
@@ -75,7 +75,7 @@ class AuthController extends Controller
         // Check if the request was successful
         if ($response->getStatusCode() != 200) {
             return response()->json([
-                'message' => 'Wrong email or password',
+                'message' => 'Wrong email or password3',
                 'status' => 422
             ], 422);
         }
