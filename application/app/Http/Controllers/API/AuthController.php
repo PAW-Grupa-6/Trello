@@ -50,11 +50,20 @@ class AuthController extends Controller
             ], 422);
         }
 
+        $oauth_client = DB::table('oauth_clients')->where(['password_client' => 1, 'revoked' => 0])->first();
+        if($oauth_client == null)
+        {
+            return response()->json([
+                'message' => "Problem with server.",
+                'status' => 422
+            ],422);
+        }
+
         // Send an internal API request to get an access token
         $data = [
             'grant_type' => 'password',
-            'client_id' => '2',
-            'client_secret' => 'hpMvK84sVpMaPQTZGNhlsA8VyRoiKgoZYMinrETp',
+            'client_id' => $oauth_client->id,
+            'client_secret' => $oauth_client->secret,
             'username' => request('username'),
             'password' => request('password'),
         ];
