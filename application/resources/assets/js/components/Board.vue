@@ -81,16 +81,22 @@
                         Event.$emit('boardChange');
                     }).catch(response =>{
                         console.log(response);
-                        alert(response.data.message)
-                })
+                        alert(response.data.message);
+                        if (response.status === 403){
+                            Event.$emit('boardChange');
+                        }
+                });
 
             },
             deleteBoard(id) {
                 api.call('delete', '/api/boards/'+ id + '/delete')
                     .then(response =>{
                         console.log(response.response);
-                        Event.$emit('boardChange');
-                    })
+                    }).catch(response =>{
+                        console.log(response);
+                        alert(response.data.message)
+                });
+                Event.$emit('boardChange');
             }
         }
     }

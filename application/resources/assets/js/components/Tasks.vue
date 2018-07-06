@@ -37,8 +37,11 @@
                 api.call('delete', '/api/tasks/'+ id + '/delete')
                     .then(response =>{
                         console.log(response.response);
-                        Event.$emit('boardChange');
-                    })
+                    }).catch(response =>{
+                        console.log(response);
+                        alert(response.data.message)
+                });
+                Event.$emit('boardChange');
             },
             onAdd(evt){
                 console.log(evt);
@@ -46,8 +49,11 @@
                 api.call('post', '/api/tasks/' + taskId + '/edit', {board_id: this.board_id})
                     .then(response => {
                         console.log(response);
-                        Event.$emit('boardChange');
-                    })
+                    }).catch(response =>{
+                        console.log(response);
+                        alert(response.data.message)
+                })
+                Event.$emit('boardChange');
             },
             onChange() {
 

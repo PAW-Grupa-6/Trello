@@ -36,7 +36,8 @@ class BoardController extends Controller
     }
 
     public function update(Request $request, Board $board) {
-        $user = Auth::user();
+
+        $this->authorize('update', $board);
 
         $request->validate([
             'table_name' => 'required|min:3',
@@ -47,6 +48,9 @@ class BoardController extends Controller
     }
 
     public function destroy(Request $request, Board $board) {
+
+        $this->authorize('destroy', $board);
+
         $board->tasks()->delete();
         $board->delete();
         return response()->json(['status' => 'success'], 200);
