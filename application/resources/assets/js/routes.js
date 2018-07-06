@@ -2,7 +2,7 @@ import VueRouter from 'vue-router';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from './components/Home';
-import Board from './components/Board'
+import Board from './components/Board';
 
 let routes = [
     {

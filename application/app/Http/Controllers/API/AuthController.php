@@ -36,7 +36,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'Wrong email or password1',
+                'message' => 'Wrong email or password',
                 'status' => 422
             ], 422);
         }
@@ -45,7 +45,7 @@ class AuthController extends Controller
         // belongs to this user
         if (!Hash::check(request('password'), $user->password)) {
             return response()->json([
-                'message' => 'Wrong email or password2',
+                'message' => 'Wrong email or password',
                 'status' => 422
             ], 422);
         }
