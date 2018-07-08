@@ -13,7 +13,7 @@
                             <label>Task descrption</label>
                             <input v-model="task.description" type="text">
                         </div>
-                        <button class="btn">Dodaj</button>
+                        <button class="btn">Add</button>
                     </form>
                 </div>
             </div>
